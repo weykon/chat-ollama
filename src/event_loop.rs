@@ -7,15 +7,16 @@ use winit::{
     error::EventLoopError,
     event::{Event, WindowEvent},
     event_loop::{ControlFlow, EventLoop},
-    window::WindowBuilder,
+    window::Window,
 };
 
 use crate::app::App;
 
-pub fn boost_window(mut app: App) -> Result<(), EventLoopError> {
-    let event_loop = EventLoop::new().unwrap();
-    let window = WindowBuilder::new().build(&event_loop).unwrap();
-
+pub fn boost_window(
+    mut app: App,
+    window: &Window,
+    event_loop: EventLoop<()>,
+) -> Result<(), EventLoopError> {
     // ControlFlow::Poll continuously runs the event loop, even if the OS hasn't
     // dispatched any events. This is ideal for games and similar applications.
     event_loop.set_control_flow(ControlFlow::Poll);
